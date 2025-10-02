@@ -10,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.79.1",
+    "@react-three/fiber": "^8.13.5",
     "@supabase/supabase-js": "^2.57.4",
     "@types/react-router-dom": "^5.3.3",
+    "i18next": "^25.5.3",
+    "i18next-browser-languagedetector": "^8.2.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-i18next": "^16.0.0",
     "react-router-dom": "^7.9.2"
   },
   "devDependencies": {

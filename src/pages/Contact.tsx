@@ -52,14 +52,14 @@ const Contact: React.FC = () => {
     {
       name: 'LinkedIn',
       icon: Linkedin,
-      href: 'https://linkedin.com/in/tu-perfil',
+      href: 'https://www.linkedin.com/in/fabritciops15/',
       color: 'hover:text-blue-600 dark:hover:text-blue-400',
       followers: '2.5K'
     },
     {
       name: 'GitHub',
       icon: Github,
-      href: 'https://github.com/tu-usuario',
+      href: 'https://github.com/FabritcioPS15',
       color: 'hover:text-gray-900 dark:hover:text-white',
       followers: '1.2K'
     },
@@ -74,23 +74,23 @@ const Contact: React.FC = () => {
 
   const contactInfo = [
     {
-      icon: Mail,
-      label: 'Email',
-      value: 'contacto@tudominio.com',
-      href: 'mailto:contacto@tudominio.com',
-      description: 'Respuesta en 24 horas'
+      icon: MessageCircle,
+      label: 'WhatsApp',
+      value: '+51 958 077 827',
+      href: 'https://wa.me/51958077827?text=Hola%20Fabritcio%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20hablar%20contigo%20sobre%20un%20proyecto.%20%C2%BFPodemos%20coordinar%3F',
+      description: 'Respuesta rápida por WhatsApp'
     },
     {
       icon: Phone,
       label: 'Teléfono',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+51 958 077 827',
+      href: 'tel:+51958077827',
       description: 'Lunes a Viernes 9AM-6PM'
     },
     {
       icon: MapPin,
       label: 'Ubicación',
-      value: 'Ciudad, País',
+      value: 'Lima, Perú',
       href: 'https://maps.google.com',
       description: 'Disponible para reuniones'
     }
@@ -350,39 +350,6 @@ const Contact: React.FC = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Social Links */}
-              <div className="rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8" style={{ backgroundColor: 'var(--bg)' }}>
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 flex items-center" style={{ color: 'var(--text-dark)' }}>
-                  <Users className="mr-2 sm:mr-3" size={20} style={{ color: 'var(--accent-600)' }} />
-                  <span className="hidden sm:inline">{t('contact.follow_social')}</span>
-                  <span className="sm:hidden">{t('contact.social_short')}</span>
-                </h3>
-                <div className="grid grid-cols-1 gap-3 sm:gap-4">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center p-3 sm:p-4 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group"
-                      style={{ backgroundColor: 'var(--bg)', border: '1px solid var(--border)' }}
-                    >
-                      <div className="p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 transition-colors" style={{ backgroundColor: 'var(--accent-600)', opacity: 0.1 }}>
-                        <social.icon size={20} style={{ color: 'var(--accent-600)' }} />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold transition-colors text-sm sm:text-base" style={{ color: 'var(--text-dark)' }}>
-                          {social.name}
-                        </h4>
-                        <p className="text-xs sm:text-sm" style={{ color: 'var(--text)', opacity: 0.7 }}>{social.followers} {t('contact.followers')}</p>
-                      </div>
-                      <ExternalLink size={16} className="transition-colors" style={{ color: 'var(--accent-600)' }} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-
               {/* Availability */}
               <div className="rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 relative overflow-hidden border border-gray-200 dark:border-gray-700" style={{ backgroundColor: 'var(--bg)' }}>
                 <div className="absolute top-0 right-0 w-16 h-16 sm:w-24 sm:h-24 rounded-full -translate-y-8 sm:-translate-y-12 translate-x-8 sm:translate-x-12" style={{ backgroundColor: 'var(--accent-600)', opacity: 0.15 }}></div>
@@ -471,46 +438,46 @@ const Contact: React.FC = () => {
         {/* CTA Section */}
         <AnimatedSection>
           <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
-            <div className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--accent-600), var(--accent-hover))', opacity: 0.1 }}>
+            {/* Fondo con alto contraste para todos los temas */}
+            <div className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--accent-600), var(--accent-hover))' }}>
               {/* Background decoration */}
               <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 rounded-full -translate-y-12 sm:-translate-y-16 translate-x-12 sm:translate-x-16" style={{ backgroundColor: 'var(--accent-600)', opacity: 0.1 }}></div>
               <div className="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 rounded-full translate-y-8 sm:translate-y-12 -translate-x-8 sm:-translate-x-12" style={{ backgroundColor: 'var(--accent-hover)', opacity: 0.1 }}></div>
               
               <div className="relative z-10">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6" style={{ color: 'var(--text-dark)' }}>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6" style={{ color: '#ffffff' }}>
                   {t('contact.ready_start')}
                 </h3>
-                <p className="text-sm sm:text-base lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--text)', opacity: 0.8 }}>
+                <p className="text-sm sm:text-base lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'rgba(255,255,255,0.9)' }}>
                   {t('contact.work_together')}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <div className="flex flex-col gap-3 sm:gap-4 items-center justify-center">
                   <a 
-                    href="mailto:contacto@tudominio.com"
+                    href="https://wa.me/51958077827?text=Hola%20Fabritcio%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20hablar%20contigo%20sobre%20un%20proyecto.%20%C2%BFPodemos%20coordinar%3F"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-medium text-sm sm:text-base"
-                    style={{ background: 'linear-gradient(135deg, var(--accent-600), var(--accent-hover))' }}
+                    style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))', border: '1px solid rgba(255,255,255,0.35)' }}
                   >
-                    <Mail size={18} className="mr-2" />
-                    {t('contact.send_email')}
+                    <MessageCircle size={18} className="mr-2" />
+                    WhatsApp
                   </a>
+                  <p className="text-sm sm:text-base lg:text-lg" style={{ color: 'rgba(255,255,255,0.9)' }}>
+                    ¿Aún tienes dudas? ¿Quieres ver otros trabajos?
+                  </p>
                   <a 
                     href="/projects"
-                    className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border-2 rounded-lg transition-all duration-300 transform hover:-translate-y-1 font-medium text-sm sm:text-base"
-                    style={{ 
-                      borderColor: 'var(--border)', 
-                      color: 'var(--text)',
-                      backgroundColor: 'var(--bg)'
-                    }}
+                    className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 font-medium text-sm sm:text-base text-white"
+                    style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))', border: '1px solid rgba(255,255,255,0.35)' }}
                     onMouseEnter={(e) => {
-                      (e.target as HTMLElement).style.borderColor = 'var(--accent-600)';
-                      (e.target as HTMLElement).style.color = 'var(--accent-600)';
+                      (e.target as HTMLElement).setAttribute('style', 'background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.2)); border: 1px solid rgba(255,255,255,0.6); color: #ffffff');
                     }}
                     onMouseLeave={(e) => {
-                      (e.target as HTMLElement).style.borderColor = 'var(--border)';
-                      (e.target as HTMLElement).style.color = 'var(--text)';
+                      (e.target as HTMLElement).setAttribute('style', 'background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)); border: 1px solid rgba(255,255,255,0.35); color: #ffffff');
                     }}
                   >
                     <Rocket size={18} className="mr-2" />
-                    {t('contact.view_projects')}
+                    Ver proyectos
                   </a>
                 </div>
               </div>

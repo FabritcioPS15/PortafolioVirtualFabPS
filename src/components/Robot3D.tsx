@@ -4,7 +4,7 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 
 function RobotModel() {
   const group = useRef<any>();
-  const { scene } = useGLTF("/images/models/space_maintenance_robot.glb");
+  const { scene } = useGLTF("/images/models/robotinteractivo.glb");
 
   // Rotación automática
   useFrame(() => {

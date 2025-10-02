@@ -9,6 +9,7 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [cursorType, setCursorType] = useState('default');
+  const [isTyping, setIsTyping] = useState(false);
   const [isCursorVisible, setIsCursorVisible] = useState(false);
   const [trails, setTrails] = useState<Array<{ id: number; x: number; y: number; opacity: number }>>([]);
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
@@ -76,6 +77,7 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
                  target.classList.contains('textarea')) {
           setCursorType('text');
           setIsHovering(false);
+          setIsTyping(true);
         } 
         // Check for any interactive element
         else if (target.closest?.('[role="button"]') || 
@@ -90,6 +92,7 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
         else {
           setCursorType('default');
           setIsHovering(false);
+          setIsTyping(false);
         }
       }
     };
@@ -188,27 +191,42 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
         />
       ))}
       
-      {/* Main cursor - smaller and more elegant */}
+      {/* Main cursor - themed and elegant */}
       <div
-        className={`custom-cursor ${cursorType} ${isHovering ? 'hover' : ''} ${isClicking ? 'click' : ''}`}
+        className={`custom-cursor ${cursorType} ${isHovering ? 'hover' : ''} ${isClicking ? 'click' : ''} ${isTyping ? 'typing' : ''}`}
         style={{
-          left: position.x - 8,
-          top: position.y - 8,
-          width: isHovering ? '16px' : '12px',
-          height: isHovering ? '16px' : '12px',
+          left: position.x - (cursorType === 'text' ? 1 : 8),
+          top: position.y - (cursorType === 'text' ? 8 : 8),
+          width: cursorType === 'text' ? '2px' : (isHovering ? '16px' : '12px'),
+          height: cursorType === 'text' ? '16px' : (isHovering ? '16px' : '12px'),
         }}
       />
       
       {/* Cursor dot - smaller and more precise */}
-      <div
-        className="custom-cursor-dot"
-        style={{
-          left: position.x - 1,
-          top: position.y - 1,
-          width: '2px',
-          height: '2px',
-        }}
-      />
+      {cursorType !== 'text' && (
+        <div
+          className="custom-cursor-dot"
+          style={{
+            left: position.x - 1,
+            top: position.y - 1,
+            width: '2px',
+            height: '2px',
+          }}
+        />
+      )}
+      
+      {/* Text cursor blinking effect */}
+      {cursorType === 'text' && (
+        <div
+          className="custom-cursor-text-blink"
+          style={{
+            left: position.x - 1,
+            top: position.y - 8,
+            width: '2px',
+            height: '16px',
+          }}
+        />
+      )}
     </>
   );
 };

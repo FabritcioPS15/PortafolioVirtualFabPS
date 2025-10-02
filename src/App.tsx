@@ -1,7 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Layout from './components/Layout';
@@ -14,21 +12,6 @@ function App() {
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <div style={{ width: "100vw", height: "100vh" }}>
-          <Suspense fallback={<div>Loading 3D Scene...</div>}>
-            <Canvas camera={{ position: [3, 3, 3] }}>
-              <ambientLight intensity={0.5} />
-              <pointLight position={[10, 10, 10]} />
-
-              <mesh rotation={[0.5, 0.5, 0]}>
-                <boxGeometry args={[1, 1, 1]} />
-                <meshStandardMaterial color="orange" />
-              </mesh>
-
-              <OrbitControls />
-            </Canvas>
-          </Suspense>
-        </div>
         <Router>
           <Layout>
             <Routes>

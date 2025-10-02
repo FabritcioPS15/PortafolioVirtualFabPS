@@ -3,6 +3,28 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Robot entrance animation utilities */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+/* Robot walking animation */
+@keyframes robotWalk {
+  0% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-2px) rotate(1deg); }
+  50% { transform: translateY(0px) rotate(0deg); }
+  75% { transform: translateY(-2px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.robot-walking {
+  animation: robotWalk 0.6s ease-in-out infinite;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -90,37 +112,98 @@ body {
   box-shadow: 0 0 20px var(--accent-600);
 }
 
-/* Cursor for interactive elements */
+/* Cursor for interactive elements - themed crosshair */
 .custom-cursor.interactive {
   transform: scale(1.1);
   background: var(--accent-hover);
   border: 1px solid var(--accent-600);
   box-shadow: 0 0 10px var(--accent-600);
+  border-radius: 50%;
+  animation: interactive-cursor-rotate 3s linear infinite;
 }
 
-/* Cursor for text elements */
+/* Interactive cursor rotate animation */
+@keyframes interactive-cursor-rotate {
+  0% {
+    transform: scale(1.1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(360deg);
+  }
+}
+
+/* Cursor for text elements - themed I-beam */
 .custom-cursor.text {
-  transform: scale(0.8);
-  background: var(--accent-800);
-  border-radius: 2px;
+  transform: scale(1);
+  background: var(--accent-600);
+  border-radius: 1px;
   width: 2px !important;
   height: 16px !important;
+  box-shadow: 0 0 8px var(--accent-600);
+  animation: text-cursor-blink 1s infinite;
 }
 
-/* Cursor for buttons */
+/* Text cursor blinking animation */
+@keyframes text-cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0.3;
+  }
+}
+
+/* Text cursor blinking effect */
+.custom-cursor-text-blink {
+  position: fixed;
+  width: 2px;
+  height: 16px;
+  background: var(--accent-600);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: text-cursor-blink 1s infinite;
+  box-shadow: 0 0 8px var(--accent-600);
+}
+
+/* Cursor for buttons - themed pointer */
 .custom-cursor.button {
   transform: scale(1.4);
   background: var(--accent-hover);
   border: 2px solid var(--accent-600);
   box-shadow: 0 0 20px var(--accent-600);
+  border-radius: 50%;
+  animation: button-cursor-pulse 2s infinite;
 }
 
-/* Cursor for links */
+/* Button cursor pulse animation */
+@keyframes button-cursor-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--accent-600);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--accent-600), 0 0 40px var(--accent-hover);
+  }
+}
+
+/* Cursor for links - themed hand */
 .custom-cursor.link {
   transform: scale(1.2);
   background: var(--accent-600);
   border: 1px solid var(--accent-hover);
   box-shadow: 0 0 12px var(--accent-600);
+  border-radius: 50%;
+  animation: link-cursor-glow 1.5s infinite;
+}
+
+/* Link cursor glow animation */
+@keyframes link-cursor-glow {
+  0%, 100% {
+    box-shadow: 0 0 12px var(--accent-600);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--accent-600), 0 0 25px var(--accent-hover);
+  }
 }
 
 /* Cursor trail effect */
@@ -241,6 +324,305 @@ a:visited {
 /* Remove cursor from disabled states */
 button:disabled, input:disabled, textarea:disabled {
   cursor: none !important;
+}
+
+/* Custom text selection with high contrast colors - OVERRIDE DEFAULT GRAY */
+::selection {
+  background: #ff0080 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+::-moz-selection {
+  background: #ff0080 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Enhanced text selection for better visibility */
+::selection {
+  background: linear-gradient(135deg, #ff0080, #cc0066) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 3px !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+::-moz-selection {
+  background: linear-gradient(135deg, #ff0080, #cc0066) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 3px !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Dark mode - use lighter colors for better contrast */
+.dark ::selection {
+  background: #00ffff !important;
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark ::-moz-selection {
+  background: #00ffff !important;
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark ::selection {
+  background: linear-gradient(135deg, #00ffff, #00cccc) !important;
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  border-radius: 3px !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark ::-moz-selection {
+  background: linear-gradient(135deg, #00ffff, #00cccc) !important;
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  border-radius: 3px !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Selection glow effect */
+::selection {
+  box-shadow: 0 0 15px #ff0080 !important;
+}
+
+::-moz-selection {
+  box-shadow: 0 0 15px #ff0080 !important;
+}
+
+/* Dark mode glow effect */
+.dark ::selection {
+  box-shadow: 0 0 15px #00ffff !important;
+}
+
+.dark ::-moz-selection {
+  box-shadow: 0 0 15px #00ffff !important;
+}
+
+/* Special selection styles for different elements */
+h1::selection, h2::selection, h3::selection, h4::selection, h5::selection, h6::selection {
+  background: linear-gradient(135deg, #ff0080, #cc0066) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 20px #ff0080 !important;
+  border: 4px solid #ffffff !important;
+  outline: 4px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+h1::-moz-selection, h2::-moz-selection, h3::-moz-selection, h4::-moz-selection, h5::-moz-selection, h6::-moz-selection {
+  background: linear-gradient(135deg, #ff0080, #cc0066) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 20px #ff0080 !important;
+  border: 4px solid #ffffff !important;
+  outline: 4px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Dark mode headings */
+.dark h1::selection, .dark h2::selection, .dark h3::selection, .dark h4::selection, .dark h5::selection, .dark h6::selection {
+  background: linear-gradient(135deg, #00ffff, #00cccc) !important;
+  color: #000000 !important;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 20px #00ffff !important;
+  border: 4px solid #ffffff !important;
+  outline: 4px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark h1::-moz-selection, .dark h2::-moz-selection, .dark h3::-moz-selection, .dark h4::-moz-selection, .dark h5::-moz-selection, .dark h6::-moz-selection {
+  background: linear-gradient(135deg, #00ffff, #00cccc) !important;
+  color: #000000 !important;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 20px #00ffff !important;
+  border: 4px solid #ffffff !important;
+  outline: 4px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Code and pre elements selection */
+code::selection, pre::selection, .code::selection {
+  background: linear-gradient(135deg, #ff0080, #cc0066) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 0 12px #ff0080 !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+code::-moz-selection, pre::-moz-selection, .code::-moz-selection {
+  background: linear-gradient(135deg, #ff0080, #cc0066) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 0 12px #ff0080 !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Dark mode code */
+.dark code::selection, .dark pre::selection, .dark .code::selection {
+  background: linear-gradient(135deg, #00ffff, #00cccc) !important;
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 0 12px #00ffff !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark code::-moz-selection, .dark pre::-moz-selection, .dark .code::-moz-selection {
+  background: linear-gradient(135deg, #00ffff, #00cccc) !important;
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 0 12px #00ffff !important;
+  border: 3px solid #ffffff !important;
+  outline: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Link selection */
+a::selection {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 10px #00ff88;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+a::-moz-selection {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 10px #00ff88;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Dark mode links */
+.dark a::selection {
+  background: linear-gradient(135deg, #ffff00, #ffcc00);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 10px #ffff00;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.dark a::-moz-selection {
+  background: linear-gradient(135deg, #ffff00, #ffcc00);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 10px #ffff00;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Button text selection */
+button::selection, .btn::selection {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 12px #00ff88;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+button::-moz-selection, .btn::-moz-selection {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 12px #00ff88;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Dark mode buttons */
+.dark button::selection, .dark .btn::selection {
+  background: linear-gradient(135deg, #ffff00, #ffcc00);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 12px #ffff00;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.dark button::-moz-selection, .dark .btn::-moz-selection {
+  background: linear-gradient(135deg, #ffff00, #ffcc00);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 12px #ffff00;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Input and textarea selection */
+input::selection, textarea::selection {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 8px #00ff88;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+input::-moz-selection, textarea::-moz-selection {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 8px #00ff88;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Dark mode inputs */
+.dark input::selection, .dark textarea::selection {
+  background: linear-gradient(135deg, #ffff00, #ffcc00);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 8px #ffff00;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.dark input::-moz-selection, .dark textarea::-moz-selection {
+  background: linear-gradient(135deg, #ffff00, #ffcc00);
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  box-shadow: 0 0 8px #ffff00;
+  border: 2px solid #ffffff;
+  outline: 2px solid rgba(255, 255, 255, 0.9);
 }
 
 /* Hide cursor on mobile devices */

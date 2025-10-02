@@ -66,72 +66,332 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  function App() {
-    return (
-      <div>
-        <h1>Mi Robot 3D 🚀</h1>
-        <Robot3D />
-      </div>
-    );
-  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${
         isScrolled ? 'backdrop-blur-sm shadow-lg' : ''
       }`}>
-        {/* Animated linear gradient background - Theme based */}
-        <div className="absolute inset-0 opacity-80 dark:opacity-70">
-          <div 
-            className="absolute inset-0 bg-gradient-to-r animate-gradient-shift"
-            style={{
-              background: `linear-gradient(135deg, var(--accent-600) 0%, var(--accent-hover) 50%, transparent 100%)`
-            }}
-          ></div>
-          <div 
-            className="absolute inset-0 bg-gradient-to-l animate-gradient-shift-reverse"
-            style={{
-              background: `linear-gradient(225deg, var(--accent-hover) 0%, var(--accent-600) 50%, transparent 100%)`
-            }}
-          ></div>
+        {/* Subtle animated background - different for mobile and desktop */}
+        <div className="absolute inset-0">
+          {/* Desktop: Animated gradient with particles */}
+          <div className="hidden sm:block absolute inset-0 opacity-85 dark:opacity-75">
+            <div 
+              className="absolute inset-0 bg-gradient-to-r animate-gradient-shift"
+              style={{
+                background: theme === 'dark' 
+                  ? `linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)`
+                  : `linear-gradient(135deg, var(--accent-600) 0%, var(--accent-hover) 50%, transparent 100%)`
+              }}
+            ></div>
+            <div 
+              className="absolute inset-0 bg-gradient-to-l animate-gradient-shift-reverse"
+              style={{
+                background: theme === 'dark'
+                  ? `linear-gradient(225deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 50%, transparent 100%)`
+                  : `linear-gradient(225deg, var(--accent-hover) 0%, var(--accent-600) 50%, transparent 100%)`
+              }}
+            ></div>
+          </div>
+          
+          {/* Mobile: Animated circles background */}
+          <div className="sm:hidden absolute inset-0 overflow-hidden">
+            {/* Base gradient */}
+            <div 
+              className="absolute inset-0 opacity-80 dark:opacity-70"
+              style={{
+                background: theme === 'dark'
+                  ? `linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)`
+                  : `linear-gradient(135deg, var(--accent-600) 0%, var(--accent-hover) 100%)`
+              }}
+            ></div>
+            
+            {/* Animated circles */}
+            <div className="absolute inset-0">
+              <div 
+                className="absolute w-16 h-16 rounded-full animate-float-slow opacity-30"
+                style={{
+                  backgroundColor: 'var(--accent-hover)',
+                  top: '10%',
+                  left: '15%',
+                  animationDuration: '8s'
+                }}
+              ></div>
+              <div 
+                className="absolute w-12 h-12 rounded-full animate-float-slow-delayed opacity-25"
+                style={{
+                  backgroundColor: 'var(--accent-600)',
+                  top: '20%',
+                  right: '20%',
+                  animationDuration: '6s'
+                }}
+              ></div>
+              <div 
+                className="absolute w-20 h-20 rounded-full animate-float-slow-delayed-2 opacity-20"
+                style={{
+                  backgroundColor: 'var(--accent-hover)',
+                  top: '60%',
+                  left: '10%',
+                  animationDuration: '10s'
+                }}
+              ></div>
+              <div 
+                className="absolute w-8 h-8 rounded-full animate-float-slow opacity-35"
+                style={{
+                  backgroundColor: 'var(--accent-600)',
+                  top: '70%',
+                  right: '15%',
+                  animationDuration: '7s'
+                }}
+              ></div>
+              <div 
+                className="absolute w-14 h-14 rounded-full animate-float-slow-delayed opacity-30"
+                style={{
+                  backgroundColor: 'var(--accent-hover)',
+                  top: '40%',
+                  left: '60%',
+                  animationDuration: '9s'
+                }}
+              ></div>
+              <div 
+                className="absolute w-6 h-6 rounded-full animate-float-slow-delayed-2 opacity-25"
+                style={{
+                  backgroundColor: 'var(--accent-600)',
+                  top: '80%',
+                  left: '70%',
+                  animationDuration: '5s'
+                }}
+              ></div>
+            </div>
+          </div>
+          
+          {/* Floating particles - Desktop only */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none hidden lg:block">
+            {/* Top row */}
+            <div 
+              className="absolute top-1 left-[5%] w-1 h-1 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.8' : '0.3'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[15%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.7' : '0.25'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[25%] w-1 h-1 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.6' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[35%] w-0.5 h-0.5 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.9' : '0.3'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[45%] w-1 h-1 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.5' : '0.15'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[55%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.8' : '0.25'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[65%] w-1 h-1 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.7' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[75%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.6' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[85%] w-1 h-1 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.9' : '0.3'
+              }}
+            ></div>
+            <div 
+              className="absolute top-1 left-[95%] w-0.5 h-0.5 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.5' : '0.15'
+              }}
+            ></div>
+
+            {/* Middle row */}
+            <div 
+              className="absolute top-3 left-[10%] w-0.5 h-0.5 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.8' : '0.25'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[20%] w-1 h-1 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.7' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[30%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.6' : '0.18'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[40%] w-1 h-1 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.9' : '0.28'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[50%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.5' : '0.16'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[60%] w-1 h-1 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.8' : '0.24'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[70%] w-0.5 h-0.5 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.7' : '0.21'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[80%] w-1 h-1 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.6' : '0.19'
+              }}
+            ></div>
+            <div 
+              className="absolute top-3 left-[90%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.9' : '0.27'
+              }}
+            ></div>
+
+            {/* Bottom row */}
+            <div 
+              className="absolute top-5 left-[5%] w-1 h-1 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.8' : '0.3'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[15%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.7' : '0.25'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[25%] w-1 h-1 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.6' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[35%] w-0.5 h-0.5 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.9' : '0.3'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[45%] w-1 h-1 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.5' : '0.15'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[55%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.8' : '0.25'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[65%] w-1 h-1 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.7' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[75%] w-0.5 h-0.5 rounded-full animate-float-slow-delayed"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.6' : '0.2'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[85%] w-1 h-1 rounded-full animate-float-slow-delayed-2"
+              style={{
+                backgroundColor: 'var(--accent-600)',
+                opacity: theme === 'dark' ? '0.9' : '0.3'
+              }}
+            ></div>
+            <div 
+              className="absolute top-5 left-[95%] w-0.5 h-0.5 rounded-full animate-float-slow"
+              style={{
+                backgroundColor: 'var(--accent-hover)',
+                opacity: theme === 'dark' ? '0.5' : '0.15'
+              }}
+            ></div>
+          </div>
         </div>
-        
-        {/* Animated particles - Theme based - Hidden on mobile */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block">
-          <div 
-            className="absolute top-2 left-1/4 w-1 h-1 rounded-full animate-float-slow opacity-40"
-            style={{backgroundColor: 'var(--accent-600)'}}
-          ></div>
-          <div 
-            className="absolute top-4 right-1/3 w-1.5 h-1.5 rounded-full animate-float-slow-delayed opacity-30"
-            style={{backgroundColor: 'var(--accent-hover)'}}
-          ></div>
-          <div 
-            className="absolute top-6 left-2/3 w-1 h-1 rounded-full animate-float-slow-delayed-2 opacity-25"
-            style={{backgroundColor: 'var(--accent-600)'}}
-          ></div>
-          <div 
-            className="absolute top-3 right-1/4 w-1 h-1 rounded-full animate-float-slow opacity-35"
-            style={{backgroundColor: 'var(--accent-hover)'}}
-          ></div>
-        </div>
-        
         {/* Content with relative positioning */}
         <div className="relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Background overlay for better text readability */}
-            <div className="absolute inset-0 bg-white/20 dark:bg-black/10 backdrop-blur-sm rounded-lg mx-4"></div>
             {/* Logo */}
             <div className="flex items-center relative z-10">
               <Link 
                 to="/" 
-                className="text-2xl font-bold transition-colors duration-200 navbar-text"
+                className="text-xl sm:text-2xl font-bold transition-colors duration-200 navbar-text"
                 style={{
                   color: 'var(--text)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--accent-400)';
+                  e.currentTarget.style.color = theme === 'dark' ? 'var(--accent-400)' : 'var(--accent-700)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = 'var(--text)';
@@ -155,11 +415,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                         : 'text-sm md:text-base'
                     }`}
                     style={{
-                      color: isActive ? 'var(--accent-600)' : 'var(--text)'
+                      color: isActive ? (theme === 'dark' ? 'var(--accent-200)' : 'var(--accent-800)') : 'var(--text)'
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.color = 'var(--accent-400)';
+                        e.currentTarget.style.color = theme === 'dark' ? 'var(--accent-400)' : 'var(--accent-700)';
                       }
                     }}
                     onMouseLeave={(e) => {

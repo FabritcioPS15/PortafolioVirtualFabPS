@@ -177,22 +177,22 @@ const About: React.FC = () => {
   const experiences = [
     {
       company: 'TechCorp',
-      role: 'Senior Developer',
-      location: 'Ciudad, País',
+      role: 'Soporte técnico',
+      location: 'Lima, Perú',
       start: '2023',
-      end: 'Presente',
+      end: '2023',
       description: 'Lidero el desarrollo de aplicaciones web complejas y mentoreo a desarrolladores junior.'
     },
     {
-      company: 'DesignStudio',
+      company: 'Freelance',
       role: 'Frontend Developer',
-      location: 'Ciudad, País',
+      location: 'Remoto',
       start: '2021',
       end: '2023',
       description: 'Construí interfaces modernas y accesibles para múltiples clientes, optimizando rendimiento.'
     },
     {
-      company: 'Startup X',
+      company: 'Freelance',
       role: 'Full Stack Developer',
       location: 'Ciudad, País',
       start: '2020',
@@ -200,16 +200,16 @@ const About: React.FC = () => {
       description: 'Desarrollé funcionalidades end-to-end y diseñé APIs REST robustas.'
     },
     {
-      company: 'Agencia Web',
+      company: 'Freelance',
       role: 'Web Developer',
-      location: 'Ciudad, País',
+      location: 'Remoto',
       start: '2019',
       end: '2020',
       description: 'Implementé sitios responsivos y mejoré la puntuación Lighthouse de proyectos existentes.'
     },
     {
       company: 'Freelance',
-      role: 'Desarrollador',
+      role: 'Grupo San Cristobal',
       location: 'Remoto',
       start: '2017',
       end: '2019',
@@ -335,12 +335,12 @@ const About: React.FC = () => {
                   </p>
                   
                   <div className="flex flex-wrap gap-4">
-                    <button className="btn-primary">
+                    <a href="/projects" className="btn-primary">
                       {t('about.view_projects')}
-                    </button>
-                    <button className="btn-secondary">
+                    </a>
+                    <a href="mailto:fabpsandoval@gmail.com" className="btn-secondary">
                       {t('about.download_cv')}
-                    </button>
+                    </a>
                   </div>
                 </div>
               </AnimatedSection>

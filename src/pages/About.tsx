@@ -30,32 +30,32 @@ const About: React.FC = () => {
     { name: 'Supabase', icon: '🟢', color: '#3ECF8E', image: '/images/technologies/SUPABASE.png' },
     { name: 'Vite', icon: '⚡', color: '#646CFF', image: '/images/technologies/VITE.png' },
     // Tecnologías sin imagen (usando emojis)
-    { name: 'Vue.js', icon: '🟢', color: '#4FC08D' },
+    { name: 'Vue.js', icon: '🟢', color: '#4FC08D', image: '/images/technologies/VUEJS.png' },
     { name: 'Angular', icon: '🅰️', color: '#DD0031' },
     { name: 'Sass', icon: '💗', color: '#CC6699' },
     { name: 'Next.js', icon: '▲', color: '#000000' },
     { name: 'Nuxt.js', icon: '🔺', color: '#00DC82' },
     { name: 'Express', icon: '🚀', color: '#000000' },
-    { name: 'Python', icon: '🐍', color: '#3776AB' },
+    { name: 'Python', icon: '🐍', color: '#3776AB', image: '/images/technologies/PYTHON.png' },
     { name: 'Django', icon: '🏛️', color: '#092E20' },
     { name: 'FastAPI', icon: '⚡', color: '#009688' },
-    { name: 'PHP', icon: '🐘', color: '#777BB4' },
+    { name: 'PHP', icon: '🐘', color: '#777BB4' , image: '/images/technologies/PHP.png'},
     { name: 'Laravel', icon: '🔴', color: '#FF2D20' },
     { name: 'Java', icon: '☕', color: '#ED8B00' },
     { name: 'Spring Boot', icon: '🍃', color: '#6DB33F' },
     { name: 'C#', icon: '🔷', color: '#239120' },
     { name: '.NET', icon: '🟣', color: '#512BD4' },
-    { name: 'MongoDB', icon: '🍃', color: '#47A248' },
+    { name: 'MongoDB', icon: '🍃', color: '#47A248', image: '/images/technologies/MONGODB.png' },
     { name: 'PostgreSQL', icon: '🐘', color: '#336791' },
-    { name: 'MySQL', icon: '🐬', color: '#4479A1' },
+    { name: 'MySQL', icon: '🐬', color: '#4479A1' , image: '/images/technologies/MYSQL.png'},
     { name: 'Redis', icon: '🔴', color: '#DC382D' },
     { name: 'Docker', icon: '🐳', color: '#2496ED' },
     { name: 'Kubernetes', icon: '⚓', color: '#326CE5' },
     { name: 'AWS', icon: '☁️', color: '#FF9900' },
-    { name: 'Azure', icon: '🔷', color: '#0078D4' },
-    { name: 'Git', icon: '📝', color: '#F05032' },
-    { name: 'GitHub', icon: '🐙', color: '#181717' },
-    { name: 'GitLab', icon: '🦊', color: '#FCA326' }
+    { name: 'Vercel', icon: '🔷', color: '#0078D4' , image: '/images/technologies/VERCEL.png'},
+    { name: 'Git', icon: '📝', color: '#F05032' , image: '/images/technologies/GIT.png'},
+    { name: 'GitHub', icon: '🐙', color: '#181717', image: '/images/technologies/GITHUB.png' },
+    { name: 'WordPress', icon: '🦊', color: '#FCA326', image: '/images/technologies/WORDPRESS.png' }
   ];
 
   const roles = [
@@ -176,7 +176,7 @@ const About: React.FC = () => {
 
   const experiences = [
     {
-      company: 'TechCorp',
+      company: 'Estudio Contable',
       role: 'Soporte técnico',
       location: 'Lima, Perú',
       start: '2023',
@@ -187,32 +187,24 @@ const About: React.FC = () => {
       company: 'Freelance',
       role: 'Frontend Developer',
       location: 'Remoto',
-      start: '2021',
-      end: '2023',
+      start: '2024',
+      end: '2025',
       description: 'Construí interfaces modernas y accesibles para múltiples clientes, optimizando rendimiento.'
     },
     {
       company: 'Freelance',
       role: 'Full Stack Developer',
-      location: 'Ciudad, País',
-      start: '2020',
-      end: '2021',
+      location: 'Remoto',
+      start: '2025',
+      end: '2025',
       description: 'Desarrollé funcionalidades end-to-end y diseñé APIs REST robustas.'
     },
     {
-      company: 'Freelance',
-      role: 'Web Developer',
+      company: 'Grupo San Cristobal',
+      role: 'Ingeniero de Sistemas - Desarrollador Full Stack',
       location: 'Remoto',
-      start: '2019',
-      end: '2020',
-      description: 'Implementé sitios responsivos y mejoré la puntuación Lighthouse de proyectos existentes.'
-    },
-    {
-      company: 'Freelance',
-      role: 'Grupo San Cristobal',
-      location: 'Remoto',
-      start: '2017',
-      end: '2019',
+      start: '2024',
+      end: 'Ahora',
       description: 'Proyectos a medida para PYMES: landings, e-commerce y dashboards.'
     }
   ];
@@ -335,10 +327,10 @@ const About: React.FC = () => {
                   </p>
                   
                   <div className="flex flex-wrap gap-4">
-                    <a href="/projects" className="btn-primary">
+                    <a href="/projects" className="btn-primary hover-button">
                       {t('about.view_projects')}
                     </a>
-                    <a href="mailto:fabpsandoval@gmail.com" className="btn-secondary">
+                    <a href="mailto:fabpsandoval@gmail.com" className="btn-secondary hover-accent-border">
                       {t('about.download_cv')}
                     </a>
                   </div>
@@ -360,7 +352,7 @@ const About: React.FC = () => {
                     <img 
                       src="https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=600"
                       alt="Perfil profesional"
-                      className="w-full max-w-md mx-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500"
+                      className="w-full max-w-md mx-auto rounded-2xl shadow-2xl hover-image"
                     />
                     
                     {/* Status indicator */}
@@ -413,12 +405,12 @@ const About: React.FC = () => {
                       style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
                     >
                       {/* Vista de iconos/imágenes únicamente */}
-                      <div className="flex flex-col items-center p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-110 min-w-[140px]" 
+                      <div className="flex flex-col items-center p-6 rounded-2xl shadow-xl hover-card min-w-[140px]" 
                            style={{
                              backgroundColor: 'var(--bg)',
                              border: '2px solid var(--border)'
                            }}>
-                        <div className="mb-3 group-hover:scale-125 transition-transform duration-300 flex items-center justify-center w-12 h-12">
+                        <div className="mb-3 hover-icon flex items-center justify-center w-12 h-12">
                           {tech.image ? (
                             <img 
                               src={tech.image} 
@@ -501,7 +493,7 @@ const About: React.FC = () => {
           </AnimatedSection>
 
           <AnimatedSection animation="fade-up">
-            <div className="rounded-2xl p-6 sm:p-8 shadow-lg" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+            <div className="rounded-2xl p-6 sm:p-8 shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
               <div className="relative">
                 <div className="absolute left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700"></div>
                 <div className="space-y-10">
@@ -545,15 +537,15 @@ const About: React.FC = () => {
           {/* Stats */}
           <AnimatedSection>
             <div className="grid md:grid-cols-3 gap-8 mb-16">
-              <div className="text-center p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+              <div className="text-center p-8 rounded-xl shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
                 <div className="text-4xl font-bold mb-2 accent-text">{achievements.length}+</div>
                 <div style={{color: 'var(--text-dark)'}}>Certificaciones</div>
               </div>
-              <div className="text-center p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+              <div className="text-center p-8 rounded-xl shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
                 <div className="text-4xl font-bold mb-2 accent-text">3</div>
                 <div style={{color: 'var(--text-dark)'}}>Años de Experiencia</div>
               </div>
-              <div className="text-center p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+              <div className="text-center p-8 rounded-xl shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
                 <div className="text-4xl font-bold mb-2 accent-text">15+</div>
                 <div style={{color: 'var(--text-dark)'}}>Proyectos Completados</div>
               </div>
@@ -564,14 +556,14 @@ const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {achievements.map((achievement, index) => (
               <AnimatedSection key={achievement.id} delay={index * 100}>
-                <div className="rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+                <div className="rounded-xl p-6 shadow-lg hover-card group" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center">
                       <div className="p-3 rounded-lg mr-4" style={{backgroundColor: 'var(--accent-600)', opacity: 0.1}}>
                         <Award className="w-6 h-6 accent-text" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold transition-colors group-hover:accent-text" style={{color: 'var(--text-dark)'}}>
+                        <h3 className="text-xl font-bold hover-text" style={{color: 'var(--text-dark)'}}>
                           {achievement.title}
                         </h3>
                         <div className="flex items-center text-gray-500 dark:text-gray-400 mt-1">
@@ -586,7 +578,7 @@ const About: React.FC = () => {
                           href={achievement.certificateUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-gray-400 hover:accent-text transition-colors"
+                          className="p-2 text-gray-400 hover-icon"
                           title="Ver certificado"
                         >
                           <ExternalLink size={20} />
@@ -603,7 +595,7 @@ const About: React.FC = () => {
                     {achievement.description}
                   </p>
 
-                  <div className="mt-4 inline-flex items-center px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 text-xs font-medium rounded-full">
+                  <div className="mt-4 inline-flex items-center px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 text-xs font-medium rounded-full hover-badge">
                     ✓ Verificado
                   </div>
                 </div>
@@ -625,13 +617,13 @@ const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {skills.map((skill, index) => (
               <AnimatedSection key={skill.name} delay={index * 100}>
-                <div className="rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+                <div className="rounded-xl p-6 shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
                   <div className="flex items-center mb-4">
                     <div className="p-3 rounded-lg mr-4" style={{backgroundColor: 'var(--accent-600)', opacity: 0.1}}>
-                      <skill.icon className="w-6 h-6 accent-text" />
+                      <skill.icon className="w-6 h-6 accent-text hover-icon" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold" style={{color: 'var(--text-dark)'}}>{skill.name}</h3>
+                      <h3 className="font-semibold hover-text" style={{color: 'var(--text-dark)'}}>{skill.name}</h3>
                       <p className="text-sm" style={{color: 'var(--text)', opacity: 0.7}}>{skill.level}% {t('about.skills.level')}</p>
                     </div>
                   </div>

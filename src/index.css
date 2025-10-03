@@ -1714,6 +1714,201 @@ body {
 .accent-text { color: var(--accent-600); }
 .accent-border { border-color: var(--accent-600); }
 
+/* Themed hover effects */
+.hover-accent {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-accent:hover {
+  color: var(--accent-600);
+  transform: translateY(-2px);
+}
+
+.hover-accent-bg {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-accent-bg:hover {
+  background-color: var(--accent-600);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-accent-border {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+}
+
+.hover-accent-border:hover {
+  border-color: var(--accent-600);
+  background-color: var(--accent-50);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hover-accent-scale {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-accent-scale:hover {
+  transform: scale(1.05);
+  color: var(--accent-600);
+}
+
+.hover-accent-glow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-accent-glow:hover {
+  box-shadow: 0 0 20px var(--accent-600);
+  transform: translateY(-2px);
+}
+
+.hover-accent-underline {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-accent-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-600);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-accent-underline:hover::after {
+  width: 100%;
+}
+
+.hover-accent-underline:hover {
+  color: var(--accent-600);
+}
+
+/* Card hover effects */
+.hover-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border);
+}
+
+.hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-600);
+}
+
+/* Button hover effects */
+.hover-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--accent-600);
+  color: white;
+}
+
+.hover-button:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Image hover effects */
+.hover-image {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.hover-image:hover {
+  transform: scale(1.05);
+}
+
+.hover-image img {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-image:hover img {
+  transform: scale(1.1);
+}
+
+/* Text hover effects */
+.hover-text {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-text:hover {
+  color: var(--accent-600);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon hover effects */
+.hover-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-icon:hover {
+  color: var(--accent-600);
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* Link hover effects */
+.hover-link {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.hover-link:hover {
+  color: var(--accent-600);
+}
+
+.hover-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-600);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-link:hover::after {
+  width: 100%;
+}
+
+/* Badge hover effects */
+.hover-badge {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--accent-50);
+  color: var(--accent-600);
+  border: 1px solid var(--accent-200);
+}
+
+.hover-badge:hover {
+  background-color: var(--accent-600);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode hover adjustments */
+.dark .hover-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dark .hover-button:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.dark .hover-accent-glow:hover {
+  box-shadow: 0 0 25px var(--accent-600);
+}
+
+.dark .hover-badge:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* Text helpers */
 .text-dark { color: var(--text-dark); }
 

@@ -12,7 +12,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-  const { theme, toggleTheme, colorScheme, setColorScheme, handleColorSchemeChange, isTransitioning } = useTheme();
+  const { theme, toggleTheme, colorScheme, handleColorSchemeChange, isTransitioning } = useTheme();
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
 
@@ -386,15 +386,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <div className="flex items-center relative z-10">
               <Link 
                 to="/" 
-                className="text-xl sm:text-2xl font-bold transition-colors duration-200 navbar-text"
+                className="text-xl sm:text-2xl font-bold navbar-text hover-accent"
                 style={{
                   color: 'var(--text)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = theme === 'dark' ? 'var(--accent-400)' : 'var(--accent-700)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--text)';
                 }}
               >
                 {t('nav.portfolio')}
@@ -409,23 +403,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`relative px-4 py-3 font-medium transition-all duration-200 whitespace-nowrap leading-none navbar-text ${
+                    className={`relative px-4 py-3 font-medium whitespace-nowrap leading-none navbar-text ${
                       isActive
                         ? 'underline underline-offset-8 decoration-2 text-lg md:text-xl'
-                        : 'text-sm md:text-base'
+                        : 'text-sm md:text-base hover-accent-underline'
                     }`}
                     style={{
                       color: isActive ? (theme === 'dark' ? 'var(--accent-200)' : 'var(--accent-800)') : 'var(--text)'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = theme === 'dark' ? 'var(--accent-400)' : 'var(--accent-700)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.color = 'var(--text)';
-                      }
                     }}
                   >
                     {item.name}
@@ -440,7 +424,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     href={cvUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center px-3 py-2 text-sm md:text-base rounded-lg text-white transition-colors accent-bg"
+                    className="inline-flex items-center px-3 py-2 text-sm md:text-base rounded-lg text-white hover-button"
                   >
                     <Download size={18} className="mr-2" /> {t('nav.download_cv')}
                   </a>
@@ -448,7 +432,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     href={socialLinks.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                    className="p-2 rounded-lg hover-accent-glow"
                     style={{
                       backgroundColor: 'var(--accent-600)',
                       color: 'white'
@@ -461,7 +445,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     href={socialLinks.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                    className="p-2 rounded-lg hover-accent-glow"
                     style={{
                       backgroundColor: 'var(--accent-600)',
                       color: 'white'
@@ -474,7 +458,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   <div className="relative" data-menu>
                     <button
                       onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                      className="p-2.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                      className="p-2.5 rounded-xl shadow-md hover-accent-glow"
                       style={{
                         backgroundColor: 'var(--accent-600)',
                         color: 'white',
@@ -538,7 +522,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     <button
                       onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
                       disabled={isTransitioning}
-                      className={`p-2.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg
+                      className={`p-2.5 rounded-xl shadow-md hover-accent-glow
                                  ${isTransitioning ? 'animate-pulse opacity-75' : ''}`}
                       style={{
                         backgroundColor: 'var(--accent-600)',
@@ -616,7 +600,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <div className="md:hidden relative z-10">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                className="p-2 rounded-lg hover-accent-glow"
                 style={{
                   backgroundColor: 'var(--accent-600)',
                   color: 'white'
@@ -665,7 +649,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
               {/* Navigation Links */}
               <div className="flex-1 p-4 space-y-2 overflow-y-auto" style={{backgroundColor: 'var(--bg)'}}>
-                {navigation.map((item, index) => {
+                {navigation.map((item) => {
                   const isActive = location.pathname === item.href;
                   return (
                     <Link

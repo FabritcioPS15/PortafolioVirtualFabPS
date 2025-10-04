@@ -1,0 +1,9 @@
+# Apache .htaccess file for React Router
+# This file tells Apache to serve index.html for all routes
+# so that React Router can handle client-side routing
+
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
+

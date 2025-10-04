@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Code, Palette, Rocket, Users, Award, Calendar, Building, ExternalLink, X, ChevronRight } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import { useTimelineAnimation } from '../hooks/useTimelineAnimation';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const About: React.FC = () => {
@@ -16,6 +17,10 @@ const About: React.FC = () => {
   const [carouselOffset, setCarouselOffset] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const { t } = useLanguage();
+
+  // Referencias para la animación de la línea de tiempo
+  const timelineContainerRef = useRef<HTMLElement>(null);
+  const timelineLineRef = useRef<HTMLDivElement>(null);
 
   // Definir tecnologías con sus iconos/símbolos e imágenes
   const technologies = [
@@ -235,6 +240,13 @@ const About: React.FC = () => {
       certificateUrl: 'https://example.com/cert3'
     }
   ];
+
+  // Hook para la animación de la línea de tiempo
+  const { visibleItems, lineProgress, isVisible } = useTimelineAnimation({
+    containerRef: timelineContainerRef,
+    lineRef: timelineLineRef,
+    itemsCount: experiences.length
+  });
 
   return (
     <div className="min-h-screen">
@@ -484,7 +496,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800">
+      <section ref={timelineContainerRef} className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection>
             <h2 className="text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">
@@ -495,27 +507,74 @@ const About: React.FC = () => {
           <AnimatedSection animation="fade-up">
             <div className="rounded-2xl p-6 sm:p-8 shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
               <div className="relative">
-                <div className="absolute left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700"></div>
+                {/* Línea de tiempo animada */}
+                <div 
+                  ref={timelineLineRef}
+                  className="absolute left-2 sm:left-2.5 top-0 bottom-0 w-px transition-all duration-1000 ease-out"
+                  style={{
+                    background: `linear-gradient(to bottom, 
+                      var(--accent-600) 0%, 
+                      var(--accent-600) ${lineProgress}%, 
+                      var(--border) ${lineProgress}%, 
+                      var(--border) 100%)`
+                  }}
+                ></div>
+                
                 <div className="space-y-10">
                   {experiences.map((exp, index) => (
                     <div
                       key={exp.company + index}
-                      className="relative pt-12 md:pt-0 md:pl-12 text-center md:text-left"
+                      className={`relative transition-all duration-700 ease-out ${
+                        visibleItems.includes(index) 
+                          ? 'opacity-100 translate-y-0' 
+                          : 'opacity-0 translate-y-8'
+                      }`}
+                      style={{
+                        transitionDelay: visibleItems.includes(index) ? `${index * 100}ms` : '0ms'
+                      }}
                     >
-                      <div className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 top-1 w-8 h-8 rounded-full border-2 flex items-center justify-center shadow" style={{backgroundColor: 'var(--bg)', borderColor: 'var(--accent-600)'}}>
-                        <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{backgroundColor: 'var(--accent-600)'}}></span>
-                        <div className="relative w-3 h-3 rounded-full" style={{backgroundColor: 'var(--accent-600)'}}></div>
+                      {/* Contenedor principal con flexbox */}
+                      <div className="flex items-start gap-4">
+                        {/* Punto de la línea de tiempo */}
+                        <div 
+                          className={`flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shadow transition-all duration-500 ${
+                            visibleItems.includes(index) ? 'scale-100' : 'scale-0'
+                          }`}
+                          style={{
+                            backgroundColor: 'var(--bg)', 
+                            borderColor: 'var(--accent-600)',
+                            transitionDelay: visibleItems.includes(index) ? `${index * 100 + 200}ms` : '0ms'
+                          }}
+                        >
+                          {visibleItems.includes(index) && (
+                            <>
+                              <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{backgroundColor: 'var(--accent-600)'}}></span>
+                              <div className="relative w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full" style={{backgroundColor: 'var(--accent-600)'}}></div>
+                            </>
+                          )}
+                        </div>
+                        
+                        {/* Contenido de la experiencia */}
+                        <div className={`flex-1 min-w-0 transition-all duration-500 ease-out ${
+                          visibleItems.includes(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                        }`}
+                        style={{
+                          transitionDelay: visibleItems.includes(index) ? `${index * 100 + 250}ms` : '0ms'
+                        }}>
+                          <div className="space-y-2">
+                            <h4 className="font-semibold text-gray-900 dark:text-white">{exp.role}</h4>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                              @ {exp.company}
+                            </div>
+                            <div className="text-sm accent-text font-medium">
+                              {exp.start} - {exp.end} · {exp.location}
+                            </div>
+                            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                              {exp.description}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex flex-wrap items-baseline gap-2 justify-center md:justify-start">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">{exp.role}</h4>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">@ {exp.company}</span>
-                      </div>
-                      <div className="text-sm font-medium mt-1 accent-text">
-                        {exp.start} - {exp.end} · {exp.location}
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-                        {exp.description}
-                      </p>
                     </div>
                   ))}
                 </div>

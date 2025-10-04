@@ -663,13 +663,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                       }`}
                       style={{
                         backgroundColor: isActive ? 'var(--accent-600)' : 'transparent',
-                        color: isActive ? 'white' : 'var(--text)',
+                        color: isActive ? (theme === 'dark' ? 'var(--accent-200)' : 'white') : 'var(--text)',
                         border: isActive ? 'none' : '1px solid var(--accent-600)'
                       }}
                     >
                       <span className="flex items-center">
                         {item.name}
-                        {isActive && <div className="ml-2 w-2 h-2 bg-white rounded-full animate-pulse" />}
+                        {isActive && <div className="ml-2 w-2 h-2 rounded-full animate-pulse" style={{backgroundColor: theme === 'dark' ? 'var(--accent-200)' : 'white'}} />}
                       </span>
                     </Link>
                   );

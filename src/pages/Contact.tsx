@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Send, Mail, Phone, MapPin, Linkedin, Github, Instagram, CheckCircle, Clock, MessageCircle, Calendar, Star, Award, Users, Code, Rocket, ExternalLink, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Send, Mail, Phone, MapPin, Linkedin, Github, Instagram, CheckCircle, Clock, MessageCircle, Calendar, Star, Award, Users, Code, Rocket, ExternalLink, ChevronDown, AlertCircle } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import Captcha from '../components/Captcha';
 import { ContactForm } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { emailService } from '../services/emailService';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ContactForm>({
@@ -12,9 +14,16 @@ const Contact: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState('');
   const [showFAQ, setShowFAQ] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { t } = useLanguage();
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailService.init();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -25,20 +34,53 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validar CAPTCHA antes de enviar
+    if (!isCaptchaValid) {
+      setSubmitError('Por favor, completa la verificación de seguridad correctamente.');
+      return;
+    }
+    
     setIsSubmitting(true);
+    setSubmitError(null);
     
-    // Simular envío del formulario
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-      setSelectedService('');
-    }, 3000);
+    try {
+      const selectedServiceName = selectedService ? services.find(s => s.id === selectedService)?.name || 'No especificado' : 'No especificado';
+      
+      console.log('Debug - Selected Service:', {
+        selectedService,
+        selectedServiceName,
+        services: services.map(s => ({ id: s.id, name: s.name }))
+      });
+
+      const emailParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        service_type: selectedServiceName,
+        to_name: 'Fabritcio'
+      };
+
+      const success = await emailService.sendEmail(emailParams);
+      
+      if (success) {
+        setIsSubmitted(true);
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', message: '' });
+          setSelectedService('');
+          setIsCaptchaValid(false);
+        }, 3000);
+      } else {
+        setSubmitError('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitError('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const services = [
@@ -180,6 +222,26 @@ const Contact: React.FC = () => {
                       {t('contact.thanks_response')}
                     </p>
                   </div>
+                ) : submitError ? (
+                  <div className="text-center py-8 sm:py-12">
+                    <div className="relative">
+                      <AlertCircle className="w-16 h-16 sm:w-20 sm:h-20 text-red-500 mx-auto mb-4 sm:mb-6" />
+                      <div className="absolute inset-0 bg-red-500/20 rounded-full blur-xl"></div>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style={{ color: 'var(--text-dark)' }}>
+                      Error al enviar
+                    </h3>
+                    <p className="text-sm sm:text-base lg:text-lg mb-4" style={{ color: 'var(--text)', opacity: 0.8 }}>
+                      {submitError}
+                    </p>
+                    <button
+                      onClick={() => setSubmitError(null)}
+                      className="px-6 py-2 text-white rounded-lg transition-all duration-300"
+                      style={{ backgroundColor: 'var(--accent-600)' }}
+                    >
+                      Intentar de nuevo
+                    </button>
+                  </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -272,15 +334,21 @@ const Contact: React.FC = () => {
                       />
                     </div>
 
+                    {/* CAPTCHA */}
+                    <Captcha 
+                      onValidationChange={setIsCaptchaValid}
+                      disabled={isSubmitting}
+                    />
+
                     <button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !isCaptchaValid}
                       className="w-full flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-medium disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
                       style={{ 
                         background: isSubmitting 
                           ? 'linear-gradient(135deg, var(--accent-600), var(--accent-hover))' 
                           : 'linear-gradient(135deg, var(--accent-600), var(--accent-hover))',
-                        opacity: isSubmitting ? 0.7 : 1
+                        opacity: isSubmitting || !isCaptchaValid ? 0.7 : 1
                       }}
                     >
                       {isSubmitting ? (
@@ -288,7 +356,12 @@ const Contact: React.FC = () => {
                       ) : (
                         <Send size={18} className="mr-2" />
                       )}
-                      {isSubmitting ? t('contact.sending') : t('contact.send')}
+                      {isSubmitting 
+                        ? t('contact.sending') 
+                        : !isCaptchaValid 
+                          ? 'Completa la verificación' 
+                          : t('contact.send')
+                      }
                     </button>
                   </form>
                 )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Code, Palette, Rocket, Users, Award, Calendar, Building, ExternalLink, X, ChevronRight } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
 import { useTimelineAnimation } from '../hooks/useTimelineAnimation';
@@ -63,14 +63,14 @@ const About: React.FC = () => {
     { name: 'WordPress', icon: '🦊', color: '#FCA326', image: '/images/technologies/WORDPRESS.png' }
   ];
 
-  const roles = [
-    t('about.roles.developer'),
-    t('about.roles.fullstack'),
-    t('about.roles.frontend'),
-    t('about.roles.backend'),
-    t('about.roles.designer'),
-    t('about.roles.problem_solver')
-  ];
+  const roles = useMemo(() => [
+    'Ingeniero de Sistemas',
+    'Desarrollador Web',
+    'Full Stack Developer Jr.',
+    'Frontend Developer',
+    'Backend Developer',
+    'Entusiasta de UX/UI'
+  ], []);
 
   useEffect(() => {
     const currentRole = roles[currentRoleIndex];
@@ -242,7 +242,7 @@ const About: React.FC = () => {
   ];
 
   // Hook para la animación de la línea de tiempo
-  const { visibleItems, lineProgress, isVisible } = useTimelineAnimation({
+  const { visibleItems, lineProgress } = useTimelineAnimation({
     containerRef: timelineContainerRef,
     lineRef: timelineLineRef,
     itemsCount: experiences.length
@@ -307,8 +307,17 @@ const About: React.FC = () => {
         </div>
       </aside>
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32" style={{background: 'linear-gradient(135deg, var(--bg) 0%, rgba(0,0,0,0.02) 50%, var(--bg) 100%)'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-[calc(100vh-5rem)] py-12 lg:py-16 flex items-center overflow-hidden" style={{background: 'linear-gradient(135deg, var(--bg) 0%, rgba(0,0,0,0.02) 50%, var(--bg) 100%)'}}>
+        {/* Decorative background grid */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.08]" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.35)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.35)_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        </div>
+
+        {/* Gradient blobs */}
+        <div className="pointer-events-none absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl opacity-20" style={{background: 'radial-gradient(closest-side, var(--accent-600), transparent)'}}></div>
+        <div className="pointer-events-none absolute bottom-0 -right-24 w-[520px] h-[520px] rounded-full blur-3xl opacity-10" style={{background: 'radial-gradient(closest-side, var(--accent-hover), transparent)'}}></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Text Content */}
             <div className="space-y-8">
@@ -323,10 +332,8 @@ const About: React.FC = () => {
                   </div>
                   
                   <h1 className="text-5xl lg:text-7xl font-bold leading-tight" style={{color: 'var(--text-dark)'}}>
-                    {t('about.hello')}{' '}
-                    <span className="gradient-text">
-                      Tu Nombre
-                    </span>
+                    Hola, soy{' '}
+                    <span className="gradient-text">Fabritcio Peña</span>
                   </h1>
                   
                   <div className="text-xl lg:text-2xl font-medium" style={{color: 'var(--accent-600)'}}>
@@ -335,8 +342,9 @@ const About: React.FC = () => {
                   </div>
                   
                   <p className="text-lg leading-relaxed" style={{color: 'var(--text)', opacity: 0.8}}>
-                    {t('about.description')}
-                  </p>
+                  Soy Fabritcio Peña, Ingeniero de Sistemas y Desarrollador Full Stack apasionado por la tecnología.
+Combino diseño, usabilidad y código limpio para construir aplicaciones web que funcionan y enamoran.
+Si buscas innovación, rendimiento y elegancia, estás en el lugar correcto.                  </p>
                   
                   <div className="flex flex-wrap gap-4">
                     <a href="/projects" className="btn-primary hover-button">
@@ -371,12 +379,28 @@ const About: React.FC = () => {
                     <div className="absolute bottom-4 right-4 w-6 h-6 bg-green-500 rounded-full border-4 border-white dark:border-gray-800 animate-pulse">
                       <div className="w-full h-full bg-green-400 rounded-full animate-ping"></div>
                     </div>
+
+                    {/* Floating accents */}
+                    <span className="absolute -top-3 -left-3 w-10 h-10 rounded-full border-2 animate-float-slow" style={{borderColor: 'var(--accent-600)'}}></span>
+                    <span className="absolute -bottom-5 -left-5 w-16 h-16 rounded-xl border animate-float" style={{borderColor: 'var(--border)'}}></span>
+                    <span className="absolute -top-6 -right-6 w-14 h-14 rounded-full opacity-30 blur-md animate-float-fast" style={{background: 'radial-gradient(closest-side, var(--accent-600), transparent)'}}></span>
                   </div>
                 </div>
               </AnimatedSection>
             </div>
           </div>
         </div>
+
+        {/* Scroll down indicator */}
+        <a href="#biography" className="group absolute left-1/2 -translate-x-1/2 bottom-6 flex flex-col items-center gap-2 text-sm" aria-label="Desplazarse hacia la biografía">
+          <span className="opacity-80" style={{color: 'var(--text)'}}>Scroll</span>
+          <span className="inline-flex h-9 w-5 items-start justify-center rounded-full border relative overflow-hidden" style={{borderColor: 'var(--border)'}}>
+            <span className="absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full animate-scroll-dot" style={{backgroundColor: 'var(--accent-600)'}}></span>
+          </span>
+          <svg className="w-4 h-4 opacity-70 group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{color: 'var(--text)'}}>
+            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
       </section>
 
       {/* Enhanced Tech Stack Carousel */}
@@ -471,7 +495,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Biography Section */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section id="biography" className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-6xl mx-auto px-4">
           <AnimatedSection>
             <h2 className="text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white whitespace-nowrap leading-none">
@@ -504,83 +528,99 @@ const About: React.FC = () => {
             </h2>
           </AnimatedSection>
 
-          <AnimatedSection animation="fade-up">
-            <div className="rounded-2xl p-6 sm:p-8 shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
-              <div className="relative">
-                {/* Línea de tiempo animada */}
-                <div 
-                  ref={timelineLineRef}
-                  className="absolute left-2 sm:left-2.5 top-0 bottom-0 w-px transition-all duration-1000 ease-out"
-                  style={{
-                    background: `linear-gradient(to bottom, 
-                      var(--accent-600) 0%, 
-                      var(--accent-600) ${lineProgress}%, 
-                      var(--border) ${lineProgress}%, 
-                      var(--border) 100%)`
-                  }}
-                ></div>
-                
-                <div className="space-y-10">
-                  {experiences.map((exp, index) => (
-                    <div
-                      key={exp.company + index}
-                      className={`relative transition-all duration-700 ease-out ${
-                        visibleItems.includes(index) 
-                          ? 'opacity-100 translate-y-0' 
-                          : 'opacity-0 translate-y-8'
-                      }`}
-                      style={{
-                        transitionDelay: visibleItems.includes(index) ? `${index * 100}ms` : '0ms'
-                      }}
-                    >
-                      {/* Contenedor principal con flexbox */}
-                      <div className="flex items-start gap-4">
-                        {/* Punto de la línea de tiempo */}
-                        <div 
-                          className={`flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shadow transition-all duration-500 ${
-                            visibleItems.includes(index) ? 'scale-100' : 'scale-0'
-                          }`}
-                          style={{
-                            backgroundColor: 'var(--bg)', 
-                            borderColor: 'var(--accent-600)',
-                            transitionDelay: visibleItems.includes(index) ? `${index * 100 + 200}ms` : '0ms'
-                          }}
-                        >
-                          {visibleItems.includes(index) && (
-                            <>
-                              <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{backgroundColor: 'var(--accent-600)'}}></span>
-                              <div className="relative w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full" style={{backgroundColor: 'var(--accent-600)'}}></div>
-                            </>
-                          )}
-                        </div>
-                        
-                        {/* Contenido de la experiencia */}
-                        <div className={`flex-1 min-w-0 transition-all duration-500 ease-out ${
-                          visibleItems.includes(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Columna de la línea de tiempo */}
+            <AnimatedSection animation="fade-up">
+              <div className="rounded-2xl p-6 sm:p-8 shadow-lg hover-card" style={{backgroundColor: 'var(--bg)', border: '1px solid var(--border)'}}>
+                <div className="relative">
+                  {/* Línea de tiempo animada */}
+                  <div 
+                    ref={timelineLineRef}
+                    className="absolute left-2 sm:left-2.5 top-0 bottom-0 w-px transition-all duration-1000 ease-out"
+                    style={{
+                      background: `linear-gradient(to bottom, 
+                        var(--accent-600) 0%, 
+                        var(--accent-600) ${lineProgress}%, 
+                        var(--border) ${lineProgress}%, 
+                        var(--border) 100%)`
+                    }}
+                  ></div>
+                  
+                  <div className="space-y-10">
+                    {experiences.map((exp, index) => (
+                      <div
+                        key={exp.company + index}
+                        className={`relative transition-all duration-700 ease-out ${
+                          visibleItems.includes(index) 
+                            ? 'opacity-100 translate-y-0' 
+                            : 'opacity-0 translate-y-8'
                         }`}
                         style={{
-                          transitionDelay: visibleItems.includes(index) ? `${index * 100 + 250}ms` : '0ms'
-                        }}>
-                          <div className="space-y-2">
-                            <h4 className="font-semibold text-gray-900 dark:text-white">{exp.role}</h4>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
-                              @ {exp.company}
+                          transitionDelay: visibleItems.includes(index) ? `${index * 100}ms` : '0ms'
+                        }}
+                      >
+                        {/* Contenedor principal con flexbox */}
+                        <div className="flex items-start gap-4">
+                          {/* Punto de la línea de tiempo */}
+                          <div 
+                            className={`flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shadow transition-all duration-500 ${
+                              visibleItems.includes(index) ? 'scale-100' : 'scale-0'
+                            }`}
+                            style={{
+                              backgroundColor: 'var(--bg)', 
+                              borderColor: 'var(--accent-600)',
+                              transitionDelay: visibleItems.includes(index) ? `${index * 100 + 200}ms` : '0ms'
+                            }}
+                          >
+                            {visibleItems.includes(index) && (
+                              <>
+                                <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{backgroundColor: 'var(--accent-600)'}}></span>
+                                <div className="relative w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full" style={{backgroundColor: 'var(--accent-600)'}}></div>
+                              </>
+                            )}
+                          </div>
+                          
+                          {/* Contenido de la experiencia */}
+                          <div className={`flex-1 min-w-0 transition-all duration-500 ease-out ${
+                            visibleItems.includes(index) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                          }`}
+                          style={{
+                            transitionDelay: visibleItems.includes(index) ? `${index * 100 + 250}ms` : '0ms'
+                          }}>
+                            <div className="space-y-2">
+                              <h4 className="font-semibold text-gray-900 dark:text-white">{exp.role}</h4>
+                              <div className="text-sm text-gray-500 dark:text-gray-400">
+                                @ {exp.company}
+                              </div>
+                              <div className="text-sm accent-text font-medium">
+                                {exp.start} - {exp.end} · {exp.location}
+                              </div>
+                              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                {exp.description}
+                              </p>
                             </div>
-                            <div className="text-sm accent-text font-medium">
-                              {exp.start} - {exp.end} · {exp.location}
-                            </div>
-                            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                              {exp.description}
-                            </p>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+
+            {/* Columna de imagen lateral */}
+            <AnimatedSection>
+              <div className="hidden lg:block">
+                <div className="sticky top-28">
+                  <img 
+                    src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="Experiencia laboral"
+                    className="w-full rounded-2xl shadow-2xl hover-image"
+                  />
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
 

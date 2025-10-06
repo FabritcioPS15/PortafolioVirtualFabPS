@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Heart, Mail, Phone, MapPin, Linkedin, Github, Instagram, Briefcase, Clock, Globe, Download, Layers, Sparkles, MessageCircle } from 'lucide-react';
+import ShareMenu from './ShareMenu';
 
 const Footer: React.FC = () => {
   const location = useLocation();
@@ -278,6 +279,7 @@ const Footer: React.FC = () => {
                     <social.icon size={18} />
                   </a>
               ))}
+              
               <Link
                 to="/contact"
                 className="ml-auto inline-flex items-center px-3 py-2 text-white text-sm rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
@@ -306,15 +308,22 @@ const Footer: React.FC = () => {
                   <Layers size={16} style={{color: 'var(--accent-600)'}} />
                   <span>Stack: React, TS, Node.</span>
                 </div>
-                <a
-                  href="/cv.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 inline-flex items-center gap-2 self-start px-3 py-2 rounded-lg text-sm"
-                  style={{ backgroundColor: 'var(--accent-600)', color: 'white' }}
-                >
-                  <Download size={16} /> CV
-                </a>
+                <div className="space-y-2">
+                  <a
+                    href="/cv.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm"
+                    style={{ backgroundColor: 'var(--accent-600)', color: 'white' }}
+                  >
+                    <Download size={16} /> CV
+                  </a>
+                  
+                  {/* Share Menu - Ancho completo */}
+                  <div className="w-full">
+                    <ShareMenu variant="footer" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -1,0 +1,44 @@
+import React from 'react';
+
+interface BlogBannerProps {
+  title: string;
+  subtitle: string;
+}
+
+const BlogBanner: React.FC<BlogBannerProps> = ({ title, subtitle }) => {
+  return (
+    <div 
+      className="relative overflow-hidden py-20 lg:py-32"
+      style={{ background: 'linear-gradient(135deg, var(--bg) 0%, rgba(0,0,0,0.02) 50%, var(--bg) 100%)' }}
+    >
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          {/* Title with clean typography */}
+          <h1 
+            className="text-5xl lg:text-7xl font-bold mb-6"
+            style={{ 
+              color: 'var(--text-dark)',
+              textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            }}
+          >
+            {title}
+          </h1>
+
+          {/* Subtitle with elegant underline */}
+          <p 
+            className="text-xl lg:text-2xl relative inline-block"
+            style={{ color: 'var(--text)', opacity: 0.8 }}
+          >
+            {subtitle}
+            <span 
+              className="absolute -bottom-2 left-0 w-full h-0.5 rounded-full"
+              style={{ backgroundColor: 'var(--accent-600)' }}
+            ></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlogBanner;

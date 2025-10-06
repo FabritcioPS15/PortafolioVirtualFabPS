@@ -22,79 +22,77 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
     if (!isVisible) return;
 
     const updateCursor = (e: MouseEvent) => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      // Update position immediately - no delays
+      setPosition({ x: e.clientX, y: e.clientY });
+      setIsCursorVisible(true);
       
-      animationFrameRef.current = requestAnimationFrame(() => {
-        setPosition({ x: e.clientX, y: e.clientY });
-        setIsCursorVisible(true);
-        
-        // Add trail effect
-        const newTrail = {
-          id: trailIdRef.current++,
-          x: e.clientX,
-          y: e.clientY,
-          opacity: 0.6
-        };
-        
+      // Add trail effect immediately
+      const newTrail = {
+        id: trailIdRef.current++,
+        x: e.clientX,
+        y: e.clientY,
+        opacity: 0.6
+      };
+      
         setTrails(prev => {
-          const updated = [...prev, newTrail].slice(-8); // Keep only last 8 trails
+          const updated = [...prev, newTrail].slice(-25);
           return updated;
         });
-      });
     };
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Update cursor position immediately
       updateCursor(e);
       
-      // Enhanced element detection
-      const target = e.target as HTMLElement;
-      if (target) {
-        // Check for buttons and button-like elements
-        if (target.tagName === 'BUTTON' || 
-            target.closest?.('button') || 
-            target.getAttribute('role') === 'button' ||
-            target.classList.contains('btn') ||
-            target.classList.contains('button')) {
-          setCursorType('button');
-          setIsHovering(true);
-        } 
-        // Check for links and link-like elements
-        else if (target.tagName === 'A' || 
-                 target.closest?.('a') || 
-                 target.getAttribute('role') === 'link' ||
-                 target.classList.contains('link') ||
-                 target.classList.contains('nav-link')) {
-          setCursorType('link');
-          setIsHovering(true);
-        } 
-        // Check for text input elements
-        else if (target.tagName === 'INPUT' || 
-                 target.tagName === 'TEXTAREA' || 
-                 target.getAttribute('contenteditable') === 'true' ||
-                 target.classList.contains('input') ||
-                 target.classList.contains('textarea')) {
-          setCursorType('text');
-          setIsHovering(false);
-          setIsTyping(true);
-        } 
-        // Check for any interactive element
-        else if (target.closest?.('[role="button"]') || 
-                 target.closest?.('[role="link"]') ||
-                 target.closest?.('.clickable') ||
-                 target.closest?.('.interactive') ||
-                 target.closest?.('[onclick]') ||
-                 target.closest?.('[onmousedown]')) {
-          setCursorType('interactive');
-          setIsHovering(true);
-        } 
-        else {
-          setCursorType('default');
-          setIsHovering(false);
-          setIsTyping(false);
+      // Defer element detection to avoid blocking
+      requestAnimationFrame(() => {
+        const target = e.target as HTMLElement;
+        if (target) {
+          // Check for buttons and button-like elements
+          if (target.tagName === 'BUTTON' || 
+              target.closest?.('button') || 
+              target.getAttribute('role') === 'button' ||
+              target.classList.contains('btn') ||
+              target.classList.contains('button')) {
+            setCursorType('button');
+            setIsHovering(true);
+          } 
+          // Check for links and link-like elements
+          else if (target.tagName === 'A' || 
+                   target.closest?.('a') || 
+                   target.getAttribute('role') === 'link' ||
+                   target.classList.contains('link') ||
+                   target.classList.contains('nav-link')) {
+            setCursorType('link');
+            setIsHovering(true);
+          } 
+          // Check for text input elements
+          else if (target.tagName === 'INPUT' || 
+                   target.tagName === 'TEXTAREA' || 
+                   target.getAttribute('contenteditable') === 'true' ||
+                   target.classList.contains('input') ||
+                   target.classList.contains('textarea')) {
+            setCursorType('text');
+            setIsHovering(false);
+            setIsTyping(true);
+          } 
+          // Check for any interactive element
+          else if (target.closest?.('[role="button"]') || 
+                   target.closest?.('[role="link"]') ||
+                   target.closest?.('.clickable') ||
+                   target.closest?.('.interactive') ||
+                   target.closest?.('[onclick]') ||
+                   target.closest?.('[onmousedown]')) {
+            setCursorType('interactive');
+            setIsHovering(true);
+          } 
+          else {
+            setCursorType('default');
+            setIsHovering(false);
+            setIsTyping(false);
+          }
         }
-      }
+      });
     };
 
     const handleMouseDown = (e: MouseEvent) => {
@@ -148,18 +146,27 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
     };
   }, [isVisible]);
 
-  // Update trail opacity
+  // Update trail opacity with requestAnimationFrame for better performance
   useEffect(() => {
-    const interval = setInterval(() => {
+    let animationId: number;
+    
+    const updateTrails = () => {
       setTrails(prev => 
         prev.map(trail => ({
           ...trail,
           opacity: Math.max(0, trail.opacity - 0.05)
         })).filter(trail => trail.opacity > 0)
       );
-    }, 50);
-
-    return () => clearInterval(interval);
+      animationId = requestAnimationFrame(updateTrails);
+    };
+    
+    animationId = requestAnimationFrame(updateTrails);
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, []);
 
   if (!isVisible || !isCursorVisible) return null;
@@ -185,8 +192,8 @@ const SimpleCursor: React.FC<SimpleCursorProps> = ({ isVisible = true }) => {
           key={ripple.id}
           className="cursor-ripple"
           style={{
-            left: ripple.x - 2,
-            top: ripple.y - 2,
+            left: ripple.x - 3,
+            top: ripple.y - 3,
           }}
         />
       ))}

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Palette, Github, Linkedin, Download, Globe } from 'lucide-react';
+import { Menu, X, Palette, Github, Linkedin, Download, Globe, ChevronDown } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import Footer from './Footer';
 import SimpleCursor from './SimpleCursor';
-import Enhanced3DRobot from './Enhanced3DRobot';
+import ShareMenu from './ShareMenu';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [isColorPaletteOpen, setIsColorPaletteOpen] = useState(false);
   const { theme, toggleTheme, colorScheme, handleColorSchemeChange, isTransitioning } = useTheme();
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
@@ -60,6 +61,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       if (!target.closest('[data-menu]')) {
         setIsThemeMenuOpen(false);
         setIsLanguageMenuOpen(false);
+        setIsColorPaletteOpen(false);
       }
     };
 
@@ -428,6 +430,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   >
                     <Download size={18} className="mr-2" /> {t('nav.download_cv')}
                   </a>
+                  
+                  {/* Share Menu */}
+                  <ShareMenu variant="navbar" />
+                  
                   <a
                     href={socialLinks.github}
                     target="_blank"
@@ -690,6 +696,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   Descargar CV
                 </a>
 
+                {/* Share Menu */}
+                <div className="w-full">
+                  <ShareMenu variant="footer" className="w-full" />
+                </div>
+
                 {/* Social Links */}
                 <div className="flex space-x-3">
                   <a
@@ -737,39 +748,73 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   </button>
                 </div>
 
-                {/* Color Schemes */}
+                {/* Color Schemes - Desplegable */}
                 <div>
-                  <span className="text-sm font-medium block mb-3" style={{color: 'var(--text)'}}>Paletas de Color</span>
-                  <div className="grid grid-cols-2 gap-2">
-                    {colorSchemes.map((scheme) => (
-                      <button
-                        key={scheme.value}
-                        onClick={() => handleColorSchemeChange(scheme.value as any)}
-                        disabled={isTransitioning}
-                        className={`p-2 rounded-lg border-2 transition-all duration-200 ${
-                          colorScheme === scheme.value
-                            ? 'scale-105 shadow-lg'
-                            : 'hover:scale-102'
-                        } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        style={{ 
-                          backgroundColor: colorScheme === scheme.value ? 'var(--accent-600)' : 'transparent',
-                          borderColor: 'var(--accent-600)',
-                          color: colorScheme === scheme.value ? 'white' : 'var(--text)'
-                        }}
-                        aria-label={`Seleccionar esquema ${scheme.name}`}
-                      >
-                        <div className="flex justify-center gap-1 mb-1">
-                          {scheme.colors.map((color, idx) => (
-                            <div 
-                              key={idx}
-                              className="w-2 h-2 rounded-full border border-white/20"
-                              style={{ backgroundColor: color }}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-xs font-medium text-center block">{scheme.name}</span>
-                      </button>
-                    ))}
+                  <button
+                    onClick={() => setIsColorPaletteOpen(!isColorPaletteOpen)}
+                    className="w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 hover:scale-105"
+                    style={{ 
+                      backgroundColor: 'var(--accent-600)', 
+                      color: 'white',
+                      border: '1px solid var(--accent-hover)',
+                      boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--accent-hover)';
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--accent-600)';
+                      e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                  >
+                    <span className="text-sm font-medium">Paletas de Color</span>
+                    <ChevronDown 
+                      size={16} 
+                      className={`transition-transform duration-300 ${isColorPaletteOpen ? 'rotate-180' : ''}`} 
+                    />
+                  </button>
+                  
+                  <div 
+                    className="overflow-hidden transition-all duration-500"
+                    style={{
+                      maxHeight: isColorPaletteOpen ? '300px' : '0',
+                      opacity: isColorPaletteOpen ? 1 : 0,
+                      marginTop: isColorPaletteOpen ? '12px' : '0'
+                    }}
+                  >
+                    <div className="grid grid-cols-2 gap-3">
+                      {colorSchemes.map((scheme) => (
+                        <button
+                          key={scheme.value}
+                          onClick={() => handleColorSchemeChange(scheme.value as any)}
+                          disabled={isTransitioning}
+                          className={`p-3 rounded-xl border-2 transition-all duration-300 transform ${
+                            colorScheme === scheme.value
+                              ? 'scale-105 shadow-lg'
+                              : 'hover:scale-102 hover:shadow-md'
+                          } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          style={{ 
+                            backgroundColor: colorScheme === scheme.value ? 'var(--accent-600)' : 'var(--bg)',
+                            borderColor: colorScheme === scheme.value ? 'var(--accent-hover)' : 'var(--accent-600)',
+                            color: colorScheme === scheme.value ? 'white' : 'var(--text)',
+                            boxShadow: colorScheme === scheme.value ? '0 8px 25px rgba(0,0,0,0.15)' : '0 2px 8px rgba(0,0,0,0.1)'
+                          }}
+                          aria-label={`Seleccionar esquema ${scheme.name}`}
+                        >
+                          <div className="flex justify-center gap-1.5 mb-2">
+                            {scheme.colors.map((color, idx) => (
+                              <div 
+                                key={idx}
+                                className="w-3 h-3 rounded-full border border-white/30 shadow-sm"
+                                style={{ backgroundColor: color }}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-xs font-semibold text-center block">{scheme.name}</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -834,8 +879,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       {/* Custom Cursor */}
       <SimpleCursor isVisible={true} />
       
-      {/* Enhanced 3D Robot */}
-      <Enhanced3DRobot position="bottom-right" size="medium" />
     </div>
   );
 };

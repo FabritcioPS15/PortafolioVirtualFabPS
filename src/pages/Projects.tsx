@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, Github, Calendar, Filter, Search, Star, Eye, Code2, Zap, Award, Users, ChevronDown, X, Grid, Smartphone, Brain, Link, Wifi } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import ProjectsBanner from '../components/ProjectsBanner';
 import { Project } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -186,11 +187,11 @@ const Projects: React.FC = () => {
           <img 
             src={project.image} 
             alt={project.title}
-            className="w-full h-56 object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+            className="w-full h-56 object-cover transition-all duration-700 group-hover:scale-105"
           />
           
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Minimal gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           
           {/* Status badge */}
           <div className="absolute top-4 right-4">
@@ -215,29 +216,16 @@ const Projects: React.FC = () => {
             </div>
           )}
 
-          {/* Hover overlay with actions */}
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <div className="flex space-x-3">
-              {project.link && (
-                <button className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors">
-                  <ExternalLink size={20} className="text-white" />
-                </button>
-              )}
-              {project.github && (
-                <button className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors">
-                  <Github size={20} className="text-white" />
-                </button>
-              )}
-              <button 
-                onClick={() => setSelectedProject(project)}
-                className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
-              >
-                <Eye size={20} className="text-white" />
-              </button>
-            </div>
+          {/* Subtle hover particles */}
+          <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <span className="particle particle-1"></span>
+            <span className="particle particle-2"></span>
+            <span className="particle particle-3"></span>
+            <span className="particle particle-4"></span>
+            <span className="particle particle-5"></span>
           </div>
         </div>
-        
+        {/* Always-visible content (no reveal) */}
         <div className="p-6">
           {/* Title with category */}
           <div className="flex items-start justify-between mb-3">
@@ -259,7 +247,7 @@ const Projects: React.FC = () => {
             {project.description}
           </p>
           
-          {/* Technologies with better styling */}
+          {/* Technologies */}
           <div className="flex flex-wrap gap-2 mb-4">
             {project.technologies.slice(0, 4).map((tech) => (
               <span 
@@ -285,7 +273,7 @@ const Projects: React.FC = () => {
             )}
           </div>
 
-          {/* Stats */}
+          {/* Stats & actions */}
           <div className="flex items-center justify-between mb-4 text-sm" style={{ color: 'var(--text)', opacity: 0.7 }}>
             <div className="flex items-center space-x-4">
               <div className="flex items-center">
@@ -305,7 +293,6 @@ const Projects: React.FC = () => {
             )}
           </div>
 
-          {/* Action buttons */}
           <div className="flex space-x-3">
             {project.link && (
               <a 
@@ -360,19 +347,14 @@ const Projects: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Enhanced Header */}
-        <AnimatedSection>
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl page-title mb-4 sm:mb-6 lg:mb-8">
-              {t('projects.title')}
-            </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              {t('projects.subtitle')}
-            </p>
-          </div>
-        </AnimatedSection>
+    <div className="min-h-screen">
+      {/* Projects Banner */}
+      <ProjectsBanner 
+        title={t('projects.title')}
+        subtitle={t('projects.subtitle')}
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 py-20">
 
         {/* Search and Filter Section */}
         <AnimatedSection>

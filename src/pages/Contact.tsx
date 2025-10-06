@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Send, Mail, Phone, MapPin, Linkedin, Github, Instagram, CheckCircle, Clock, MessageCircle, Calendar, Star, Award, Users, Code, Rocket, ExternalLink, ChevronDown, AlertCircle } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import ContactBanner from '../components/ContactBanner';
 import Captcha from '../components/Captcha';
 import { ContactForm } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -179,19 +180,14 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Enhanced Header */}
-        <AnimatedSection>
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl page-title mb-4 sm:mb-6 lg:mb-8">
-              {t('contact.title')}
-            </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              {t('contact.subtitle')}
-            </p>
-          </div>
-        </AnimatedSection>
+    <div className="min-h-screen">
+      {/* Contact Banner */}
+      <ContactBanner 
+        title={t('contact.title')}
+        subtitle={t('contact.subtitle')}
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 py-20">
 
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 mb-12 sm:mb-16">

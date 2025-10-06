@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Filter, Calendar, Clock, Eye, Heart, BookOpen, ChevronDown, X, ArrowRight, User, Share2, Bookmark, TrendingUp } from 'lucide-react';
 import AnimatedSection from '../components/AnimatedSection';
+import BlogBanner from '../components/BlogBanner';
 
 interface BlogPost {
   id: string;
@@ -312,19 +313,14 @@ const Blog: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Enhanced Header */}
-        <AnimatedSection>
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl page-title mb-4 sm:mb-6 lg:mb-8">
-              Mi Blog
-            </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Artículos sobre desarrollo, tecnología y experiencias profesionales. Comparto conocimientos y aprendizajes de mi carrera.
-            </p>
-          </div>
-        </AnimatedSection>
+    <div className="min-h-screen">
+      {/* Blog Banner */}
+      <BlogBanner 
+        title="Mi Blog"
+        subtitle="Artículos sobre desarrollo, tecnología y experiencias profesionales. Comparto conocimientos y aprendizajes de mi carrera."
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 py-20">
         {/* Search and Filter Section */}
         <AnimatedSection>
           <div className="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg mb-8 sm:mb-12" style={{ backgroundColor: 'var(--bg)' }}>

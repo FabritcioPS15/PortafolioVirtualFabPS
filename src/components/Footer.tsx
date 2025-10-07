@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Heart, Mail, Phone, MapPin, Linkedin, Github, Instagram, Briefcase, Clock, Globe, Download, Layers, Sparkles, MessageCircle } from 'lucide-react';
 import ShareMenu from './ShareMenu';
+import { LuCoffee } from "react-icons/lu";
 
 const Footer: React.FC = () => {
   const location = useLocation();
@@ -349,7 +350,9 @@ const Footer: React.FC = () => {
             <div className="flex items-center text-sm mb-4 md:mb-0" style={{color: 'var(--text)'}}>
               <span>© {currentYear} Fabritcio Peña. Hecho con</span>
               <Heart size={16} className="mx-2 animate-pulse" style={{color: 'var(--accent-600)'}} />
-              <span>y mucho café</span>
+              <span>y mucho café
+                <LuCoffee size={16} className="mx-2 animate-pulse" style={{color: 'var(--accent-600)'}} />
+              </span>
             </div>
             {!isMobile && (
               <div className="flex items-center space-x-6 text-sm" style={{color: 'var(--text)'}}>
